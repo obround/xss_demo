@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body>
+<div data-theme="light" class="flex flex-col flex-1 h-screen">
+    <div class="navbar shadow-md gap-4">
+        <div class="flex-1 gap-2">
+            <img id="logo" class="max-w-md rounded-full" src="/static/tikbook.png" alt="logo">
+            <h1 class="text-3xl font-black text-black">TikBook</h1>
+        </div>
+        <div class="flex-1 gap-2">
+            <div class="join join-horizontal form-control flex-1">
+                <input type="text" placeholder="Search" class="join-item input input-bordered flex-1"/>
+                <button class="btn join-item tiktok_button">
+                    <i class="material-icons" style="font-size:24px; color:white">search</i>
+                </button>
+
+            </div>
+        </div>
+        <div class="flex-1 gap-3 justify-end">
+            <button class="btn btn-outline upload_btn flex-none" onclick="add_modal.showModal()">
+                <i class="material-icons" style="font-size:24px; color:black">add</i> Add
+            </button>
+            <button class="btn tiktok_button flex-none text-white">
+                Login
+            </button>
+        </div>
+    </div>
+    <div class="grid grid-cols-3 p-4 gap-2">
+        {% for title, content in posts.items() %}
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">
+                    {{ title }}
+                </h2>
+                {{ content | safe }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<dialog id="add_modal" class="modal">
+    <form class="modal-box grow grid grid-cols-1 justify-items-center gap-2" method="POST">
+        <h3 class="font-bold text-lg">Add Post</h3>
+        <label class="input input-bordered flex items-center gap-2 grow w-full">
+            Title:
+            <input type="text" class="grow" name="title" placeholder="i love tikbook" required/>
+        </label>
+        <textarea class="textarea textarea-bordered grow w-full"
+                  name="content"
+                  placeholder="bc its so good guys"
+                  required></textarea>
+        <button class="btn tiktok_button w-full grow" type="submit" name="post_button">Post</button>
+    </form>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+<!--I'm so fed up with tailwind, so...-->
+<style>
+    #logo {
+        height: auto;
+        width: auto;
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    .tiktok_button {
+        background: #fe2858
+    }
+
+    .tiktok_button:hover {
+        background: #ce2146
+    }
+
+    .upload_btn {
+        background: #ffffff
+    }
+
+    .upload_btn:hover {
+        background: #eeeeee;
+        color: black;
+    }
+</style>
+</body>
+</html>
